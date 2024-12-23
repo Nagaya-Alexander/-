@@ -1,0 +1,607 @@
+-- 创建面料基本信息表
+use 面料信息存储系统
+-- 创建性能表
+CREATE TABLE 性能 (
+    编号 VARCHAR(50) PRIMARY KEY, -- 关联面料基本信息表中的编号，作为外键
+    厚度 DECIMAL(5, 2), -- 单位可根据实际情况确定，示例暂未明确具体单位
+    幅宽 DECIMAL(5, 2), -- 单位假设厘米，可按需调整
+    克重 DECIMAL(5, 2), -- 单位g/m²
+    密度 VARCHAR(50), -- 暂以简单描述形式记录，如 "经向100根/cm，纬向80根/cm"
+    纱支数 VARCHAR(50), -- 类似 "经纱30支，纬纱20支" 这样记录
+    断裂强度 DECIMAL(5, 2), -- 单位假设统一，示例未明确具体单位
+    撕裂强度 DECIMAL(5, 2), -- 单位假设统一，示例未明确具体单位
+    耐磨性 INT, -- 可通过特定测试衡量，示例以简单整数表示次数等
+    酸碱度 DECIMAL(3, 1),
+    色牢度 VARCHAR(100), -- 简单描述如 "水洗4级，摩擦3级"
+    抗皱性 VARCHAR(50), -- 例如 "良好"、"一般" 等
+    防缩水性 VARCHAR(50), -- 像 "低缩率"、"中缩率" 这样描述
+    防水性 VARCHAR(10), -- 用 "是/否" 简单表示
+    透气性 VARCHAR(10), -- 如 "好/中/差"
+    抗菌性 VARCHAR(10), -- "有/无"
+    抗紫外线性 VARCHAR(10), -- "强/弱"
+    防静电性 VARCHAR(10) -- "是/否"
+);
+
+-- 插入对应的数据，与面料基本信息表中的编号关联
+INSERT INTO 性能 (编号, 厚度, 幅宽, 克重, 密度, 纱支数, 断裂强度, 撕裂强度, 耐磨性, 酸碱度, 色牢度, 抗皱性, 防缩水性, 防水性, 透气性, 抗菌性, 抗紫外线性, 防静电性)
+SELECT 编号,
+        -- 以下为模拟数据，你可根据实际情况调整
+        CASE 编号
+            WHEN 'CT001' THEN 0.3
+            WHEN 'CT002' THEN 0.25
+            WHEN 'CT003' THEN 0.5
+            WHEN 'PC001' THEN 0.28
+            WHEN 'PV001' THEN 0.3
+            WHEN 'PW001' THEN 0.4
+            WHEN 'PL001' THEN 0.33
+            WHEN 'PA001' THEN 0.22
+            WHEN 'PM001' THEN 0.26
+            WHEN 'PN001' THEN 0.35
+            WHEN 'PJ001' THEN 0.38
+            WHEN 'CT004' THEN 0.35
+            WHEN 'CT005' THEN 0.18
+            WHEN 'CT006' THEN 0.45
+            WHEN 'CT007' THEN 0.3
+            WHEN 'CT008' THEN 0.32
+            WHEN 'WO001' THEN 0.55
+            WHEN 'LI001' THEN 0.42
+            WHEN 'SI001' THEN 0.3
+            WHEN 'AC001' THEN 0.38
+            WHEN 'NY001' THEN 0.4
+            WHEN 'SP001' THEN 0.2
+            WHEN 'VI001' THEN 0.33
+            WHEN 'MD001' THEN 0.25
+            WHEN 'BA001' THEN 0.3
+            WHEN 'LE001' THEN 1.2 -- 皮革厚度示例，单位毫米等，实际需按情况定
+            WHEN 'AR001' THEN 0.8 -- 人造皮革厚度示例
+            WHEN 'PB001' THEN 0.24
+            WHEN 'PS001' THEN 0.32
+            WHEN 'PJN001' THEN 0.3
+            WHEN 'CM001' THEN 0.35
+            WHEN 'WA001' THEN 0.4
+        END AS 厚度,
+        CASE 编号
+            WHEN 'CT001' THEN 150
+            WHEN 'CT002' THEN 140
+            WHEN 'CT003' THEN 145
+            WHEN 'PC001' THEN 165
+            WHEN 'PV001' THEN 158
+            WHEN 'PW001' THEN 142
+            WHEN 'PL001' THEN 135
+            WHEN 'PA001' THEN 170
+            WHEN 'PM001' THEN 150
+            WHEN 'PN001' THEN 140
+            WHEN 'PJ001' THEN 138
+            WHEN 'CT004' THEN 130
+            WHEN 'CT005' THEN 120
+            WHEN 'CT006' THEN 155
+            WHEN 'CT007' THEN 148
+            WHEN 'CT008' THEN 152
+            WHEN 'WO001' THEN 148
+            WHEN 'LI001' THEN 130
+            WHEN 'SI001' THEN 118
+            WHEN 'AC001' THEN 152
+            WHEN 'NY001' THEN 145
+            WHEN 'SP001' THEN 168
+            WHEN 'VI001' THEN 132
+            WHEN 'MD001' THEN 155
+            WHEN 'BA001' THEN 140
+            WHEN 'LE001' THEN 100 -- 皮革幅宽示例，单位厘米，整皮裁剪宽度有差异
+            WHEN 'AR001' THEN 120 -- 人造皮革幅宽示例
+            WHEN 'PB001' THEN 160
+            WHEN 'PS001' THEN 125
+            WHEN 'PJN001' THEN 150
+            WHEN 'CM001' THEN 150
+            WHEN 'WA001' THEN 140
+        END AS 幅宽,
+        CASE 编号
+            WHEN 'CT001' THEN 150
+            WHEN 'CT002' THEN 130
+            WHEN 'CT003' THEN 300
+            WHEN 'PC001' THEN 140
+            WHEN 'PV001' THEN 150
+            WHEN 'PW001' THEN 210
+            WHEN 'PL001' THEN 165
+            WHEN 'PA001' THEN 130
+            WHEN 'PM001' THEN 145
+            WHEN 'PN001' THEN 175
+            WHEN 'PJ001' THEN 190
+            WHEN 'CT004' THEN 180
+            WHEN 'CT005' THEN 100
+            WHEN 'CT006' THEN 220
+            WHEN 'CT007' THEN 160
+            WHEN 'CT008' THEN 170
+            WHEN 'WO001' THEN 320
+            WHEN 'LI001' THEN 230
+            WHEN 'SI001' THEN 120
+            WHEN 'AC001' THEN 180
+            WHEN 'NY001' THEN 200
+            WHEN 'SP001' THEN 100
+            WHEN 'VI001' THEN 150
+            WHEN 'MD001' THEN 130
+            WHEN 'BA001' THEN 160
+            WHEN 'LE001' THEN NULL -- 皮革克重较复杂，暂设为NULL，实际可按计算等方式定
+			        WHEN 'AR001' THEN 150 -- 人造皮革克重示例
+        WHEN 'PB001' THEN 135
+        WHEN 'PS001' THEN 160
+        WHEN 'PJN001' THEN 170
+        WHEN 'CM001' THEN 180
+        WHEN 'WA001' THEN 200
+    END AS 克重,
+    CASE 编号
+        WHEN 'CT001' THEN '经向120根/cm，纬向100根/cm'
+        WHEN 'CT002' THEN '经向100根/cm，纬向80根/cm'
+        WHEN 'CT003' THEN '经向150根/cm，纬向130根/cm'
+        WHEN 'PC001' THEN '经向110根/cm，纬向90根/cm'
+        WHEN 'PV001' THEN '经向105根/cm，纬向95根/cm'
+        WHEN 'PW001' THEN '经向130根/cm，纬向110根/cm'
+        WHEN 'PL001' THEN '经向100根/cm，纬向85根/cm'
+        WHEN 'PA001' THEN '经向120根/cm，纬向100根/cm'
+        WHEN 'PM001' THEN '经向115根/cm，纬向100根/cm'
+        WHEN 'PN001' THEN '经向125根/cm，纬向110根/cm'
+        WHEN 'PJ001' THEN '经向130根/cm，纬向115根/cm'
+        WHEN 'CT004' THEN '经向120根/cm，纬向100根/cm'
+        WHEN 'CT005' THEN '经向80根/cm，纬向60根/cm'
+        WHEN 'CT006' THEN '经向140根/cm，纬向120根/cm'
+        WHEN 'CT007' THEN '经向110根/cm，纬向90根/cm'
+        WHEN 'CT008' THEN '经向120根/cm，纬向100根/cm'
+        WHEN 'WO001' THEN '经向150根/cm，纬向130根/cm'
+        WHEN 'LI001' THEN '经向130根/cm，纬向110根/cm'
+        WHEN 'SI001' THEN '经向100根/cm，纬向80根/cm'
+        WHEN 'AC001' THEN '经向120根/cm，纬向100根/cm'
+        WHEN 'NY001' THEN '经向130根/cm，纬向110根/cm'
+        WHEN 'SP001' THEN '经向100根/cm，纬向80根/cm'
+        WHEN 'VI001' THEN '经向100根/cm，纬向80根/cm'
+        WHEN 'MD001' THEN '经向100根/cm，纬向80根/cm'
+        WHEN 'BA001' THEN '经向100根/cm，纬向80根/cm'
+        WHEN 'LE001' THEN NULL -- 皮革密度较特殊，暂设为NULL
+        WHEN 'AR001' THEN '经向100根/cm，纬向80根/cm'
+        WHEN 'PB001' THEN '经向100根/cm，纬向80根/cm'
+        WHEN 'PS001' THEN '经向100根/cm，纬向80根/cm'
+        WHEN 'PJN001' THEN '经向120根/cm，纬向100根/cm'
+        WHEN 'CM001' THEN '经向110根/cm，纬向90根/cm'
+        WHEN 'WA001' THEN '经向120根/cm，纬向100根/cm'
+    END AS 密度,
+    CASE 编号
+        WHEN 'CT001' THEN '经纱40支，纬纱30支'
+        WHEN 'CT002' THEN '经纱30支，纬纱25支'
+        WHEN 'CT003' THEN '经纱50支，纬纱40支'
+        WHEN 'PC001' THEN '经纱35支，纬纱30支'
+        WHEN 'PV001' THEN '经纱32支，纬纱30支'
+        WHEN 'PW001' THEN '经纱45支，纬纱40支'
+        WHEN 'PL001' THEN '经纱30支，纬纱28支'
+        WHEN 'PA001' THEN '经纱38支，纬纱35支'
+        WHEN 'PM001' THEN '经纱36支，纬纱32支'
+        WHEN 'PN001' THEN '经纱40支，纬纱35支'
+        WHEN 'PJ001' THEN '经纱42支，纬纱38支'
+        WHEN 'CT004' THEN '经纱40支，纬纱35支'
+        WHEN 'CT005' THEN '经纱20支，纬纱15支'
+        WHEN 'CT006' THEN '经纱45支，纬纱40支'
+        WHEN 'CT007' THEN '经纱35支，纬纱30支'
+        WHEN 'CT008' THEN '经纱38支，纬纱32支'
+        WHEN 'WO001' THEN '经纱50支，纬纱45支'
+        WHEN 'LI001' THEN '经纱40支，纬纱35支'
+        WHEN 'SI001' THEN '经纱30支，纬纱25支'
+        WHEN 'AC001' THEN '经纱35支，纬纱30支'
+        WHEN 'NY001' THEN '经纱40支，纬纱35支'
+        WHEN 'SP001' THEN '经纱30支，纬纱25支'
+        WHEN 'VI001' THEN '经纱30支，纬纱25支'
+        WHEN 'MD001' THEN '经纱30支，纬纱25支'
+        WHEN 'BA001' THEN '经纱30支，纬纱25支'
+        WHEN 'LE001' THEN NULL -- 皮革纱支数不适用，设为NULL
+        WHEN 'AR001' THEN '经纱30支，纬纱25支'
+        WHEN 'PB001' THEN '经纱30支，纬纱25支'
+        WHEN 'PS001' THEN '经纱30支，纬纱25支'
+        WHEN 'PJN001' THEN '经纱38支，纬纱32支'
+        WHEN 'CM001' THEN '经纱35支，纬纱30支'
+        WHEN 'WA001' THEN '经纱40支，纬纱35支'
+    END AS 纱支数,
+    CASE 编号
+        WHEN 'CT001' THEN 500
+        WHEN 'CT002' THEN 450
+        WHEN 'CT003' THEN 800
+        WHEN 'PC001' THEN 600
+        WHEN 'PV001' THEN 550
+        WHEN 'PW001' THEN 700
+        WHEN 'PL001' THEN 500
+        WHEN 'PA001' THEN 650
+        WHEN 'PM001' THEN 600
+        WHEN 'PN001' THEN 680
+        WHEN 'PJ001' THEN 720
+        WHEN 'CT004' THEN 600
+        WHEN 'CT005' THEN 300
+        WHEN 'CT006' THEN 700
+        WHEN 'CT007' THEN 550
+        WHEN 'CT008' THEN 600
+        WHEN 'WO001' THEN 800
+        WHEN 'LI001' THEN 700
+        WHEN 'SI001' THEN 400
+        WHEN 'AC001' THEN 600
+        WHEN 'NY001' THEN 700
+        WHEN 'SP001' THEN 500
+        WHEN 'VI001' THEN 500
+        WHEN 'MD001' THEN 500
+        WHEN 'BA001' THEN 500
+        WHEN 'LE001' THEN NULL -- 皮革断裂强度需特殊衡量，暂设为NULL
+        WHEN 'AR001' THEN 550
+        WHEN 'PB001' THEN 550
+        WHEN 'PS001' THEN 500
+        WHEN 'PJN001' THEN 650
+        WHEN 'CM001' THEN 600
+        WHEN 'WA001' THEN 650
+    END AS 断裂强度,
+    CASE 编号
+        WHEN 'CT001' THEN 300
+        WHEN 'CT002' THEN 250
+        WHEN 'CT003' THEN 500
+        WHEN 'PC001' THEN 350
+        WHEN 'PV001' THEN 320
+        WHEN 'PW001' THEN 400
+        WHEN 'PL001' THEN 300
+        WHEN 'PA001' THEN 380
+        WHEN 'PM001' THEN 360
+        WHEN 'PN001' THEN 400
+        WHEN 'PJ001' THEN 420
+        WHEN 'CT004' THEN 400
+        WHEN 'CT005' THEN 200
+        WHEN 'CT006' THEN 500
+        WHEN 'CT007' THEN 350
+        WHEN 'CT008' THEN 400
+        WHEN 'WO001' THEN 500
+        WHEN 'LI001' THEN 450
+        WHEN 'SI001' THEN 300
+        WHEN 'AC001' THEN 400
+        WHEN 'NY001' THEN 450
+        WHEN 'SP001' THEN 300
+        WHEN 'VI001' THEN 300
+        WHEN 'MD001' THEN 300
+        WHEN 'BA001' THEN 300
+        WHEN 'LE001' THEN NULL -- 皮革撕裂强度需特殊衡量，暂设为NULL
+        WHEN 'AR001' THEN 350
+        WHEN 'PB001' THEN 350
+        WHEN 'PS001' THEN 300
+        WHEN 'PJN001' THEN 380
+        WHEN 'CM001' THEN 350
+        WHEN 'WA001' THEN 400
+    END AS 撕裂强度,
+    CASE 编号
+        WHEN 'CT001' THEN 5000
+        WHEN 'CT002' THEN 4000
+        WHEN 'CT003' THEN 8000
+        WHEN 'PC001' THEN 6000
+        WHEN 'PV001' THEN 5500
+        WHEN 'PW001' THEN 7000
+        WHEN 'PL001' THEN 5000
+        WHEN 'PA001' THEN 6500
+        WHEN 'PM001' THEN 6000
+        WHEN 'PN001' THEN 6800
+        WHEN 'PJ001' THEN 7200
+        WHEN 'CT004' THEN 6000
+        WHEN 'CT005' THEN 3000
+        WHEN 'CT006' THEN 7000
+        WHEN 'CT007' THEN 5500
+        WHEN 'CT008' THEN 6000
+        WHEN 'WO001' THEN 8000
+        WHEN 'LI001' THEN 7000
+        WHEN 'SI001' THEN 4000
+        WHEN 'AC001' THEN 6000
+        WHEN 'NY001' THEN 7000
+        WHEN 'SP001' THEN 5000
+        WHEN 'VI001' THEN 5000
+        WHEN 'MD001' THEN 5000
+        WHEN 'BA001' THEN 5000
+        WHEN 'LE001' THEN NULL -- 皮革耐磨性需特殊衡量，暂设为NULL
+        WHEN 'AR001' THEN 5500
+        WHEN 'PB001' THEN 5500
+        WHEN 'PS001' THEN 5000
+        WHEN 'PJN001' THEN 6500
+        WHEN 'CM001' THEN 6000
+        WHEN 'WA001' THEN 6500
+    END AS 耐磨性,
+    CASE 编号
+        WHEN 'CT001' THEN 7.0
+        WHEN 'CT002' THEN 6.8
+        WHEN 'CT003' THEN 7.0
+        WHEN 'PC001' THEN 7.2
+        WHEN 'PV001' THEN 7.0
+        WHEN 'PW001' THEN 6.5
+        WHEN 'PL001' THEN 7.0
+        WHEN 'PA001' THEN 7.2
+        WHEN 'PM001' THEN 7.0
+        WHEN 'PN001' THEN 7.2
+        WHEN 'PJ001' THEN 7.0
+        WHEN 'CT004' THEN 6.8
+        WHEN 'CT005' THEN 7.0
+        WHEN 'CT006' THEN 7.0
+        WHEN 'CT007' THEN 7.0
+        WHEN 'CT008' THEN 7.0
+        WHEN 'WO001' THEN 6.5
+        WHEN 'LI001' THEN 7.0
+        WHEN 'SI001' THEN 6.8
+        WHEN 'AC001' THEN 7.2
+        WHEN 'NY001' THEN 7.0
+        WHEN 'SP001' THEN 7.2
+        WHEN 'VI001' THEN 7.0
+        WHEN 'MD001' THEN 7.0
+        WHEN 'BA001' THEN 7.0
+        WHEN 'LE001' THEN NULL -- 皮革酸碱度较特殊，暂设为NULL
+        WHEN 'AR001' THEN 7.2
+        WHEN 'PB001' THEN 7.0
+        WHEN 'PS001' THEN 7.0
+        WHEN 'PJN001' THEN 7.0
+        WHEN 'CM001' THEN 7.0
+        WHEN 'WA001' THEN 7.0
+    END AS 酸碱度,
+    CASE 编号
+        WHEN 'CT001' THEN '水洗4级，摩擦4级'
+        WHEN 'CT002' THEN '水洗3级，摩擦3级'
+        WHEN 'CT003' THEN '水洗4级，摩擦3级'
+        WHEN 'PC001' THEN '水洗4级，摩擦3级'
+        WHEN 'PV001' THEN '水洗3级，摩擦4级'
+        WHEN 'PW001' THEN '水洗4级，摩擦3级'
+        WHEN 'PL001' THEN '水洗3级，摩擦3级'
+        WHEN 'PA001' THEN '水洗4级，摩擦4级'
+        WHEN 'PM001' THEN '水洗3级，摩擦3级'
+        WHEN 'PN001' THEN '水洗4级，摩擦3级'
+        WHEN 'PJ001' THEN '水洗4级，摩擦3级'
+        WHEN 'CT004' THEN '水洗3级，摩擦3级'
+        WHEN 'CT005' THEN '水洗3级，摩擦3级'
+        WHEN 'CT006' THEN '水洗4级，摩擦3级'
+        WHEN 'CT007' THEN '水洗3级，摩擦3级'
+        WHEN 'CT008' THEN '水洗4级，摩擦3级'
+        WHEN 'WO001' THEN '水洗4级，摩擦3级'
+        WHEN 'LI001' THEN '水洗3级，摩擦3级'
+        WHEN 'SI001' THEN '水洗4级，摩擦3级'
+        WHEN 'AC001' THEN '水洗4级，摩擦3级'
+        WHEN 'NY001' THEN '水洗4级，摩擦3级'
+        WHEN 'SP001' THEN '水洗4级，摩擦3级'
+   
+        WHEN 'MD001' THEN '水洗3级，摩擦3级'
+        WHEN 'BA001' THEN '水洗3级，摩擦3级'
+        WHEN 'LE001' THEN NULL -- 皮革色牢度需特殊衡量，暂设为NULL
+        WHEN 'AR001' THEN '水洗3级，摩擦3级'
+        WHEN 'PB001' THEN '水洗3级，摩擦3级'
+        WHEN 'PS001' THEN '水洗4级，摩擦3级'
+        WHEN 'PJN001' THEN '水洗4级，摩擦3级'
+        WHEN 'CM001' THEN '水洗3级，摩擦3级'
+        WHEN 'WA001' THEN '水洗4级，摩擦3级'
+    END AS 色牢度,
+    CASE 编号
+        WHEN 'CT001' THEN '一般'
+        WHEN 'CT002' THEN '一般'
+        WHEN 'CT003' THEN '良好'
+        WHEN 'PC001' THEN '良好'
+        WHEN 'PV001' THEN '一般'
+        WHEN 'PW001' THEN '良好'
+        WHEN 'PL001' THEN '一般'
+        WHEN 'PA001' THEN '良好'
+        WHEN 'PM001' THEN '一般'
+        WHEN 'PN001' THEN '良好'
+        WHEN 'PJ001' THEN '良好'
+        WHEN 'CT004' THEN '一般'
+        WHEN 'CT005' THEN '差'
+        WHEN 'CT006' THEN '良好'
+        WHEN 'CT007' THEN '一般'
+        WHEN 'CT008' THEN '良好'
+        WHEN 'WO001' THEN '良好'
+        WHEN 'LI001' THEN '一般'
+        WHEN 'SI001' THEN '良好'
+        WHEN 'AC001' THEN '良好'
+        WHEN 'NY001' THEN '良好'
+        WHEN 'SP001' THEN '一般'
+        WHEN 'VI001' THEN '一般'
+        WHEN 'MD001' THEN '一般'
+        WHEN 'BA001' THEN '一般'
+        WHEN 'LE001' THEN NULL -- 皮革抗皱性需特殊衡量，暂设为NULL
+        WHEN 'AR001' THEN '一般'
+        WHEN 'PB001' THEN '一般'
+        WHEN 'PS001' THEN '良好'
+        WHEN 'PJN001' THEN '良好'
+        WHEN 'CM001' THEN '一般'
+        WHEN 'WA001' THEN '良好'
+    END AS 抗皱性,
+    CASE 编号
+        WHEN 'CT001' THEN '低缩率'
+        WHEN 'CT002' THEN '中缩率'
+        WHEN 'CT003' THEN '低缩率'
+        WHEN 'PC001' THEN '低缩率'
+        WHEN 'PV001' THEN '中缩率'
+        WHEN 'PW001' THEN '低缩率'
+        WHEN 'PL001' THEN '中缩率'
+        WHEN 'PA001' THEN '低缩率'
+        WHEN 'PM001' THEN '中缩率'
+        WHEN 'PN001' THEN '低缩率'
+        WHEN 'PJ001' THEN '低缩率'
+        WHEN 'CT004' THEN '中缩率'
+        WHEN 'CT005' THEN '高缩率'
+        WHEN 'CT006' THEN '低缩率'
+        WHEN 'CT007' THEN '中缩率'
+        WHEN 'CT008' THEN '低缩率'
+        WHEN 'WO001' THEN '低缩率'
+        WHEN 'LI001' THEN '中缩率'
+        WHEN 'SI001' THEN '低缩率'
+        WHEN 'AC001' THEN '低缩率'
+        WHEN 'NY001' THEN '低缩率'
+        WHEN 'SP001' THEN '低缩率'
+        WHEN 'VI001' THEN '中缩率'
+        WHEN 'MD001' THEN '中缩率'
+        WHEN 'BA001' THEN '中缩率'
+        WHEN 'LE001' THEN NULL -- 皮革防缩水性需特殊衡量，暂设为NULL
+        WHEN 'AR001' THEN '中缩率'
+        WHEN 'PB001' THEN '中缩率'
+        WHEN 'PS001' THEN '低缩率'
+        WHEN 'PJN001' THEN '低缩率'
+        WHEN 'CM001' THEN '中缩率'
+        WHEN 'WA001' THEN '低缩率'
+    END AS 防缩水性,
+    CASE 编号
+        WHEN 'CT001' THEN '否'
+        WHEN 'CT002' THEN '否'
+        WHEN 'CT003' THEN '否'
+        WHEN 'PC001' THEN '是'
+        WHEN 'PV001' THEN '否'
+        WHEN 'PW001' THEN '是'
+        WHEN 'PL001' THEN '否'
+        WHEN 'PA001' THEN '否'
+        WHEN 'PM001' THEN '否'
+        WHEN 'PN001' THEN '是'
+        WHEN 'PJ001' THEN '是'
+        WHEN 'CT004' THEN '否'
+        WHEN 'CT005' THEN '否'
+        WHEN 'CT006' THEN '否'
+        WHEN 'CT007' THEN '否'
+        WHEN 'CT008' THEN '否'
+        WHEN 'WO001' THEN '否'
+        WHEN 'LI001' THEN '否'
+        WHEN 'SI001' THEN '否'
+        WHEN 'AC001' THEN '是'
+        WHEN 'NY001' THEN '是'
+        WHEN 'SP001' THEN '否'
+        WHEN 'VI001' THEN '否'
+        WHEN 'MD001' THEN '否'
+        WHEN 'BA001' THEN '否'
+        WHEN 'LE001' THEN NULL -- 皮革防水性需特殊衡量，暂设为NULL
+        WHEN 'AR001' THEN '否'
+        WHEN 'PB001' THEN '否'
+        WHEN 'PS001' THEN '否'
+        WHEN 'PJN001' THEN '是'
+        WHEN 'CM001' THEN '否'
+        WHEN 'WA001' THEN '否'
+    END AS 防水性,
+    CASE 编号
+        WHEN 'CT001' THEN '好'
+        WHEN 'CT002' THEN '好'
+        WHEN 'CT003' THEN '中'
+        WHEN 'PC001' THEN '中'
+        WHEN 'PV001' THEN '好'
+        WHEN 'PW001' THEN '中'
+        WHEN 'PL001' THEN '好'
+        WHEN 'PA001' THEN '好'
+        WHEN 'PM001' THEN '好'
+        WHEN 'PN001' THEN '中'
+        WHEN 'PJ001' THEN '中'
+        WHEN 'CT004' THEN '好'
+        WHEN 'CT005' THEN '好'
+        WHEN 'CT006' THEN '中'
+        WHEN 'CT007' THEN '好'
+        WHEN 'CT008' THEN '好'
+        WHEN 'WO001' THEN '中'
+        WHEN 'LI001' THEN '好'
+        WHEN 'SI001' THEN '好'
+        WHEN 'AC001' THEN '中'
+        WHEN 'NY001' THEN '中'
+        WHEN 'SP001' THEN '好'
+        WHEN 'VI001' THEN '好'
+        WHEN 'MD001' THEN '好'
+        WHEN 'BA001' THEN '好'
+        WHEN 'LE001' THEN NULL -- 皮革透气性需特殊衡量，暂设为NULL
+        WHEN 'AR001' THEN '中'
+        WHEN 'PB001' THEN '好'
+        WHEN 'PS001' THEN '好'
+        WHEN 'PJN001' THEN '中'
+        WHEN 'CM001' THEN '好'
+        WHEN 'WA001' THEN '中'
+    END AS 透气性,
+    CASE 编号
+        WHEN 'CT001' THEN '无'
+        WHEN 'CT002' THEN '无'
+        WHEN 'CT003' THEN '无'
+        WHEN 'PC001' THEN '有'
+        WHEN 'PV001' THEN '无'
+        WHEN 'PW001' THEN '有'
+        WHEN 'PL001' THEN '无'
+        WHEN 'PA001' THEN '无'
+        WHEN 'PM001' THEN '无'
+        WHEN 'PN001' THEN '有'
+        WHEN 'PJ001' THEN '有'
+        WHEN 'CT004' THEN '无'
+        WHEN 'CT005' THEN '无'
+        WHEN 'CT006' THEN '无'
+        WHEN 'CT007' THEN '无'
+        WHEN 'CT008' THEN '无'
+        WHEN 'WO001' THEN '无'
+        WHEN 'LI001' THEN '无'
+        WHEN 'SI001' THEN '无'
+        WHEN 'AC001' THEN '有'
+        WHEN 'NY001' THEN '有'
+        WHEN 'SP001' THEN '无'
+        WHEN 'VI001' THEN '无'
+        WHEN 'MD001' THEN '无'
+        WHEN 'BA001' THEN '无'
+        WHEN 'LE001' THEN NULL -- 皮革抗菌性需特殊衡量，暂设为NULL
+        WHEN 'AR001' THEN '无'
+        WHEN 'PB001' THEN '无'
+        WHEN 'PS001' THEN '无'
+        WHEN 'PJN001' THEN '有'
+        WHEN 'CM001' THEN '无'
+        WHEN 'WA001' THEN '有'
+    END AS 抗菌性,
+    CASE 编号
+        WHEN 'CT001' THEN '弱'
+        WHEN 'CT002' THEN '弱'
+        WHEN 'CT003' THEN '弱'
+        WHEN 'PC001' THEN '中'
+        WHEN 'PV001' THEN '弱'
+        WHEN 'PW001' THEN '强'
+        WHEN 'PL001' THEN '弱'
+        WHEN 'PA001' THEN '弱'
+        WHEN 'PM001' THEN '弱'
+        WHEN 'PN001' THEN '中'
+        WHEN 'PJ001' THEN '强'
+        WHEN 'CT004' THEN '弱'
+        WHEN 'CT005' THEN '弱'
+        WHEN 'CT006' THEN '弱'
+        WHEN 'CT007' THEN '弱'
+        WHEN 'CT008' THEN '弱'
+        WHEN 'WO001' THEN '弱'
+        WHEN 'LI001' THEN '弱'
+        WHEN 'SI001' THEN '弱'
+        WHEN 'AC001' THEN '中'
+        WHEN 'NY001' THEN '强'
+        WHEN 'SP001' THEN '弱'
+        WHEN 'VI001' THEN '弱'
+        WHEN 'MD001' THEN '弱'
+        WHEN 'BA001' THEN '弱'
+        WHEN 'LE001' THEN NULL -- 皮革抗紫外线性需特殊衡量，暂设为NULL
+        WHEN 'AR001' THEN '弱'
+        WHEN 'PB001' THEN '弱'
+        WHEN 'PS001' THEN '弱'
+        WHEN 'PJN001' THEN '强'
+        WHEN 'CM001' THEN '弱'
+        WHEN 'WA001' THEN '强'
+    END AS 抗紫外线性,
+    CASE 编号
+        WHEN 'CT001' THEN '否'
+        WHEN 'CT002' THEN '否'
+        WHEN 'CT003' THEN '否'
+        WHEN 'PC001' THEN '是'
+        WHEN 'PV001' THEN '否'
+        WHEN 'PW001' THEN '是'
+        WHEN 'PL001' THEN '否'
+        WHEN 'PA001' THEN '否'
+        WHEN 'PM001' THEN '否'
+        WHEN 'PN001' THEN '是'
+        WHEN 'PJ001' THEN '是'
+        WHEN 'CT004' THEN '否'
+        WHEN 'CT005' THEN '否'
+        WHEN 'CT006' THEN '否'
+        WHEN 'CT007' THEN '否'
+        WHEN 'CT008' THEN '否'
+        WHEN 'WO001' THEN '否'
+        WHEN 'LI001' THEN '否'
+        WHEN 'SI001' THEN '否'
+        WHEN 'AC001' THEN '是'
+        WHEN 'NY001' THEN '是'
+        WHEN 'SP001' THEN '否'
+        WHEN 'VI001' THEN '否'
+        WHEN 'MD001' THEN '否'
+        WHEN 'BA001' THEN '否'
+        WHEN 'LE001' THEN NULL -- 皮革防静电性需特殊衡量，暂设为NULL
+        WHEN 'AR001' THEN '否'
+        WHEN 'PB001' THEN '否'
+        WHEN 'PS001' THEN '否'
+        WHEN 'PJN001' THEN '是'
+        WHEN 'CM001' THEN '否'
+        WHEN 'WA001' THEN '是'
+    END AS 防静电性
+FROM 面料基本信息;
